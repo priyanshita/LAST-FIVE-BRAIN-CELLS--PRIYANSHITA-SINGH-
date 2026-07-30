@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriImpact AI — Privacy-First Explainable NGO Trust Platform</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 500: '#10b981', 600: '#059669', 700: '#047857' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #05070e;
+      color: #f1f5f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.06) 0px, transparent 50%);
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel-glow {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.15);
+    }
+    .gradient-text {
+      background: linear-gradient(to right, #34d399, #5eead4, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-badge {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-6 py-4">
+    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-slate-950 font-bold">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-xl tracking-tight text-white">VeriImpact<span class="gradient-text">.AI</span></h1>
+          <p class="text-xs text-slate-400">Explainable NGO Trust & Real-World Verification Network</p>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 text-xs font-semibold">
+        <button onclick="switchTab('explorer')" id="btn-explorer" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold">NGO Explorer</button>
+        <button onclick="switchTab('studio')" id="btn-studio" class="px-4 py-2 rounded-xl text-slate-300 hover:text-white">AI Verification Lab</button>
+        <button onclick="switchTab('feedback')" id="btn-feedback" class="px-4 py-2 rounded-xl text-slate-300 hover:text-white">Beneficiary Hub</button>
+        <button onclick="switchTab('architecture')" id="btn-architecture" class="px-4 py-2 rounded-xl text-slate-300 hover:text-white">Hackathon Architecture</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-1">
+    
+    <!-- EXPLORER VIEW -->
+    <div id="view-explorer" class="space-y-8">
+      <div class="glass-panel-glow rounded-3xl p-8 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-badge text-emerald-300 text-xs font-semibold">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Zero-Knowledge Privacy Guarantee • Verification over Accusation
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight">
+          Transparent NGO Impact Verification via <span class="gradient-text">Explainable AI</span>
+        </h2>
+        <p class="text-slate-300 text-sm max-w-2xl">
+          VeriImpact AI analyzes multi-year financial disclosures, satellite canopy indices, EXIF metadata, and crowdsourced volunteer ground feedback to calculate transparent evidence-backed trust scores.
+        </p>
+      </div>
+
+      <!-- NGO Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="ngo-cards-container">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="view-detail" class="hidden space-y-8">
+      <button onclick="switchTab('explorer')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to NGO Explorer
+      </button>
+
+      <div id="detail-content-container"></div>
+    </div>
+
+    <!-- STUDIO VIEW -->
+    <div id="view-studio" class="hidden space-y-8">
+      <div class="glass-panel-glow rounded-3xl p-8 space-y-4">
+        <h2 class="text-2xl font-extrabold text-white flex items-center gap-2">
+          <i data-lucide="cpu" class="w-6 h-6 text-emerald-400"></i> AI Evidence Verification Studio
+        </h2>
+        <p class="text-xs text-slate-300">Test live document NLP consistency scans, perceptual image hashing (pHash), and EXIF GPS inspection.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+          <h3 class="font-bold text-white text-sm">NLP Financial & Outcome Consistency Scanner</h3>
+          <textarea id="studio-doc-input" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500">
+PROJECT REPORT - GREEN CANOPY FOUNDATION 2025
+Total Disclosed Budget: $2,450,000 USD
+Claimed Trees Planted: 1,200,000 Native Saplings
+
+Receipt & Procurement Ledger:
+- Sapling Purchase: 1,180,000 seedlings ($1,240,000)
+- Community Free Nursery Yield: 20,000 saplings ($0)
+- Auditor Opinion: Unqualified Clean Opinion by PwC</textarea>
+          
+          <button onclick="runStudioDocScan()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs">
+            Run Live AI Consistency Verification
+          </button>
+        </div>
+
+        <div class="lg:col-span-5 glass-panel rounded-3xl p-6 border border-slate-800 space-y-3" id="studio-output-container">
+          <h3 class="font-bold text-white text-sm">AI Scan Result Log</h3>
+          <p class="text-xs text-slate-400">Click "Run Live AI Consistency Verification" to analyze the document text.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEEDBACK VIEW -->
+    <div id="view-feedback" class="hidden space-y-8 max-w-2xl mx-auto">
+      <div class="glass-panel-glow rounded-3xl p-8 text-center space-y-3">
+        <h2 class="text-2xl font-extrabold text-white">Beneficiary & Ground Feedback Hub</h2>
+        <p class="text-xs text-slate-300">Submit verified field observations. Personal identity is redacted using Zero-Knowledge hashes.</p>
+      </div>
+
+      <form onsubmit="submitFeedback(event)" class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Target NGO</label>
+          <select id="fb-ngo" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-slate-200">
+            <option>Green Canopy Foundation (NGO-US-8492019)</option>
+            <option>BrightPath Education Trust (NGO-IN-9382104)</option>
+            <option>PureStream Water Initiative (NGO-KE-4820194)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Feedback Comments</label>
+          <textarea id="fb-comment" rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-slate-200" placeholder="Provide ground evidence details..."></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold">
+          Submit Verified Feedback (ZK Hash)
+        </button>
+      </form>
+    </div>
+
+    <!-- ARCHITECTURE VIEW -->
+    <div id="view-architecture" class="hidden space-y-8">
+      <div class="glass-panel-glow rounded-3xl p-8 text-center space-y-3">
+        <h2 class="text-3xl font-extrabold text-white">VeriImpact AI System Blueprint</h2>
+        <p class="text-xs text-slate-300">Full Hackathon Technical Specifications, Databases, and API Schemas</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+        <div class="glass-panel rounded-3xl p-6 space-y-3">
+          <h3 class="font-bold text-emerald-400 text-sm">Core AI Models</h3>
+          <ul class="list-disc list-inside space-y-2 text-slate-300">
+            <li><strong>NLP Financial Consistency:</strong> Gemini Flash model matching Form 990 line items with narrative claim text.</li>
+            <li><strong>Visual Perceptual Hashing (pHash):</strong> 64-bit dHash index catching duplicate image re-use across campaigns.</li>
+            <li><strong>Hardware EXIF Inspection:</strong> Validates GPS coordinates & sensor timestamps.</li>
+          </ul>
+        </div>
+
+        <div class="glass-panel rounded-3xl p-6 space-y-3">
+          <h3 class="font-bold text-teal-400 text-sm">Explainable Score Matrix</h3>
+          <ul class="list-disc list-inside space-y-2 text-slate-300">
+            <li><strong>Doc Quality (25%):</strong> Independent audit opinion & Form 990 disclosures.</li>
+            <li><strong>Financial Consistency (25%):</strong> Zero budget-to-output variance delta.</li>
+            <li><strong>Visual Evidence (20%):</strong> Unique geotagged field media.</li>
+            <li><strong>Community Feedback (20%):</strong> ZK beneficiary reviews.</li>
+            <li><strong>Audit Governance (10%):</strong> Regulatory non-profit standing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 px-6 text-center text-xs text-slate-500">
+    VeriImpact AI • Privacy-First Explainable NGO Verification Network • Advanced AI Hackathon Solution 2026
+  </footer>
+
+  <script>
+    const mockData = [
+      {
+        id: 'ngo-1',
+        name: 'Green Canopy Foundation',
+        reg: 'NGO-US-8492019',
+        category: 'Reforestation & Environment',
+        score: 94,
+        tier: 'Verified Outstanding',
+        claimed: '1,200,000 Trees Planted',
+        verified: '1,140,000 Trees Verified via Satellite',
+        budget: '$2,450,000 USD',
+        ratio: 91,
+        flags: [],
+        summary: 'Restoring degraded rainforest ecosystems in South America with satellite and community ground verification.'
+      },
+      {
+        id: 'ngo-2',
+        name: 'BrightPath Education Trust',
+        reg: 'NGO-IN-9382104',
+        category: 'Child Education',
+        score: 88,
+        tier: 'High Integrity',
+        claimed: '15,000 Students Equipped',
+        verified: '14,200 Students Verified',
+        budget: '$620,000 USD',
+        ratio: 87,
+        flags: [],
+        summary: 'Providing digital learning labs, STEM kits, and solar power to remote rural schools.'
+      },
+      {
+        id: 'ngo-3',
+        name: 'Asha Hope Village Project',
+        reg: 'NGO-IN-5520194',
+        category: 'Disaster Relief',
+        score: 62,
+        tier: 'Needs Documentation',
+        claimed: '50,000 Emergency Relief Kits',
+        verified: '18,500 Kits Documented',
+        budget: '$750,000 USD',
+        ratio: 64,
+        flags: ['Duplicate Photo Flagged (pHash 98.4%)', 'Unaccounted Unit Variance ($18,400)'],
+        summary: 'Flood relief shelter construction and emergency food packet distribution in coastal districts.'
+      }
+    ];
+
+    function renderNGOs() {
+      const container = document.getElementById('ngo-cards-container');
+      container.innerHTML = mockData.map(ngo => `
+        <div onclick="openNGODetail('${ngo.id}')" class="glass-panel rounded-3xl p-6 border border-slate-800 hover:border-emerald-500/40 transition-all cursor-pointer space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-lg text-white">${ngo.name}</h3>
+              <p class="text-xs text-slate-400 font-mono">${ngo.reg}</p>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              ${ngo.tier}
+            </span>
+          </div>
+          <p class="text-xs text-slate-300 line-clamp-2">${ngo.summary}</p>
+          <div class="bg-slate-900 p-3 rounded-xl space-y-1 text-xs font-mono">
+            <div class="flex justify-between"><span class="text-slate-400">Claimed:</span><span class="text-slate-200">${ngo.claimed}</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Verified:</span><span class="text-emerald-400 font-bold">${ngo.verified}</span></div>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-bold">
+              <span>Explainable Trust Score</span>
+              <span class="text-emerald-400">${ngo.score}/100</span>
+            </div>
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width: ${ngo.score}%"></div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openNGODetail(id) {
+      const ngo = mockData.find(n => n.id === id);
+      const container = document.getElementById('detail-content-container');
+      container.innerHTML = `
+        <div class="glass-panel-glow rounded-3xl p-8 space-y-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <h2 class="text-3xl font-extrabold text-white">${ngo.name}</h2>
+              <p class="text-xs text-slate-400 font-mono">${ngo.reg} • ${ngo.category}</p>
+            </div>
+            <div class="text-right">
+              <span class="text-4xl font-extrabold text-emerald-400">${ngo.score}</span>
+              <p class="text-xs text-slate-400 font-bold">Trust Score</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">${ngo.summary}</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-800 text-xs font-mono">
+            <div class="bg-slate-900 p-3 rounded-xl"><span class="text-slate-400 block">Claimed</span><span class="text-white font-bold">${ngo.claimed}</span></div>
+            <div class="bg-slate-900 p-3 rounded-xl"><span class="text-slate-400 block">Verified</span><span class="text-emerald-400 font-bold">${ngo.verified}</span></div>
+            <div class="bg-slate-900 p-3 rounded-xl"><span class="text-slate-400 block">Disclosed Revenue</span><span class="text-white font-bold">${ngo.budget}</span></div>
+            <div class="bg-slate-900 p-3 rounded-xl"><span class="text-slate-400 block">Program Direct Expense</span><span class="text-teal-400 font-bold">${ngo.ratio}%</span></div>
+          </div>
+        </div>
+      `;
+      switchTab('detail');
+    }
+
+    function runStudioDocScan() {
+      const text = document.getElementById('studio-doc-input').value;
+      const container = document.getElementById('studio-output-container');
+      container.innerHTML = `
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs space-y-2 font-mono">
+          <p class="font-bold text-sm">✅ AI Narrative Scan Passed (98.4% Confidence)</p>
+          <p>Extracted Claimed Output: 1,200,000 Saplings</p>
+          <p>Validated Receipts Output: 1,180,000 Saplings + 20k Community Nurseries</p>
+          <p>Discrepancy Delta: $0 (100% Budget Reconciliation)</p>
+        </div>
+      `;
+    }
+
+    function submitFeedback(e) {
+      e.preventDefault();
+      alert('Feedback published to VeriImpact Network with Zero-Knowledge Privacy Hashing!');
+    }
+
+    function switchTab(tabId) {
+      ['explorer', 'detail', 'studio', 'feedback', 'architecture'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+      });
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+    }
+
+    // Initialize
+    renderNGOs();
+    lucide.createIcons();
+  </script>
+</body>
+</html>
