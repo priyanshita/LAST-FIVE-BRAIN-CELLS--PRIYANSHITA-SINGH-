@@ -4,6 +4,8 @@
 
 VeritasOne AI is an advanced forensic verification and transparency platform designed to build trust between donors, volunteers, and Non-Governmental Organizations (NGOs). By leveraging automated document auditing, financial forensics, geolocation proximity, and AI trust scoring, VeritasOne AI ensures that every contribution reaches verified, high-impact social initiatives.
 
+PROTOTYPE LINK : https://ng-ozip--singhpriyanshit.replit.app/
+
 ---
 
 ## ✨ Key Features
